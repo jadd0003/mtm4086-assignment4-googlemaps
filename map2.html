@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple styled maps</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+var map;
+var brooklyn = new google.maps.LatLng(40.6743890, -73.9455);
+
+var map_id = 'custom_style';
+
+function initialize() {
+
+  var munastyle = [
+    {
+      
+        "stylers": [
+            {
+                "hue": "#f80g6y"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+		"elementType": "geometry",
+        "stylers": [
+            {
+                "lightness": 100
+				
+            }
+        ]
+    },
+	{
+		 "featureType": "road.highway",
+        "stylers": [
+            {
+                "saturation": 20
+            },
+            {
+                "visibility": "simplified"
+            },
+			{
+                "hue": "#000"
+            }
+        ]
+    },
+    
+    {
+        "featureType": "road",
+		"stylers": [
+            {
+                "visibility": "simplified"
+            }
+        ]
+	},
+{
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    }
+]
+var mapOptions = {
+    zoom: 13,
+    center: new google.maps.LatLng(-33.921066, 151.009667),
+	mapTypeControlOptions: {
+      mapTypeIds: [google.maps.MapTypeId.ROADMAP, map_id]
+    },
+ 
+    
+    mapTypeId: map_id
+  };
+
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+
+  var muna = {
+    name: 'Custom Style'
+  };
+
+  var customMapType = new google.maps.StyledMapType(munastyle, muna);
+
+  map.mapTypes.set(map_id, customMapType);
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+  </body>
+</html>
